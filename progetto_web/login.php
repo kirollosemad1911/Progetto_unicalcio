@@ -16,7 +16,7 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
     }
     else {
         // L'utente esiste, controlliamo la password
-        // $login_result[0] è la prima riga trovata (l'utente)
+       
         $db_password = $login_result[0]["password"]; 
         
         // password_verify controlla se la password scritta corrisponde all'hash nel DB
@@ -54,4 +54,5 @@ $templateParams["titolo"] = "Login";
 $templateParams["nome"] = "template/login_form.php"; 
 
 require("template/base.php");
+
 ?>
