@@ -10,11 +10,11 @@ class DatabaseHelper{
         }
     }
 
-    // 2. Funzione generica per INSERT, UPDATE, DELETE (quella che ti mancava!)
+    // 2. Funzione generica per INSERT, UPDATE, DELETE 
     public function execQuery($query){
         $stmt = $this->db->prepare($query);
         $stmt->execute();
-        return $stmt->get_result(); // O true/false a seconda del caso, qui semplifichiamo
+        return $stmt->get_result(); 
     }
 
     // 3. Funzione per le SELECT (restituisce i dati come array)
@@ -54,7 +54,7 @@ class DatabaseHelper{
         return $this->getResult("SELECT * FROM campi");
     }
 
-    // 1. Funzione MODIFICATA per creare la partita
+    // 1. Funzione per creare la partita
     public function insertPartita($id_campo, $data_ora, $giocatori_iniziali){
         // Inseriamo direttamente i giocatori iniziali che decide l'Admin
         $query = "INSERT INTO partite (id_campo, data_ora, giocatori_max, giocatori_attuali, stato) 
@@ -66,7 +66,7 @@ class DatabaseHelper{
         return $stmt->execute();
     }
 
-    // 2. NUOVA funzione: serve all'Admin per vedere chi ha fatto richiesta
+    // 2. funzione: serve all'Admin per vedere chi ha fatto richiesta
     public function getRichiesteUtenti(){
         // Prende le disponibilità unendo i nomi degli utenti
         $query = "SELECT disponibilita.*, utenti.nome, utenti.cognome 
@@ -84,7 +84,7 @@ class DatabaseHelper{
         return $this->getResult($query);
     }
 
-    // 2. Cancella una partita (CRUD: Delete)
+    // 2. Cancella una partita 
     public function deletePartita($id){
         $query = "DELETE FROM partite WHERE id = ?";
         $stmt = $this->db->prepare($query);
@@ -92,7 +92,7 @@ class DatabaseHelper{
         return $stmt->execute();
     }
 
-    // 3. Cancella una richiesta di disponibilità (CRUD: Delete)
+    // 3. Cancella una richiesta di disponibilità 
     public function deleteRichiesta($id){
         $query = "DELETE FROM disponibilita WHERE id = ?";
         $stmt = $this->db->prepare($query);
@@ -109,7 +109,7 @@ class DatabaseHelper{
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    // 5. Modifica una partita (CRUD: Update)
+    // 5. Modifica una partita 
     public function updatePartita($id, $id_campo, $data_ora, $giocatori_iniziali){
         $query = "UPDATE partite SET id_campo=?, data_ora=?, giocatori_attuali=? WHERE id=?";
         $stmt = $this->db->prepare($query);
@@ -136,7 +136,7 @@ class DatabaseHelper{
 
     // 3. Kiro vede le partite a cui si è iscritto
     public function getUserPrenotazioni($id_utente){
-        // AGGIUNTO: prenotazioni.id_partita
+        
         $query = "SELECT prenotazioni.id_partita, partite.data_ora, campi.nome, campi.indirizzo 
                   FROM prenotazioni 
                   JOIN partite ON prenotazioni.id_partita = partite.id 
@@ -186,5 +186,6 @@ class DatabaseHelper{
         return false;
     }
 }
+
 
 ?>
