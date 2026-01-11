@@ -10,7 +10,6 @@ if(!isset($_SESSION["idutente"])){
 }
 
 // SE È L'ADMIN (Marcello)
-// SE È L'ADMIN
 if($_SESSION["ruolo"] == "admin"){
     
     // AZIONE 1: Creazione Partita (Create)
@@ -41,9 +40,6 @@ if($_SESSION["ruolo"] == "admin"){
     $templateParams["nome"] = "template/admin_home.php";
 }
 // SE È UN UTENTE NORMALE (Kiro)
-// ... parte Admin sopra ...
-
-// SE È UN UTENTE NORMALE (Kiro)
 else {
     // AZIONE 1: Invia Disponibilità
     if(isset($_POST["azione"]) && $_POST["azione"] == "invia_disponibilita"){
@@ -61,15 +57,13 @@ else {
         }
     }
 
-    // ... dopo if($_POST["azione"] == "prenota") ...
-
     // AZIONE 3: Annulla Prenotazione
     if(isset($_POST["azione"]) && $_POST["azione"] == "annulla_prenotazione"){
         $dbh->cancelPrenotazione($_POST["id_partita"], $_SESSION["idutente"]);
         $templateParams["messaggio"] = "Prenotazione cancellata. Posto liberato! 🗑️";
     }
 
-    // ... poi continua con il caricamento dati ...
+    
 
     // Carichiamo i dati per Kiro
     $templateParams["partite_disponibili"] = $dbh->getPartite(); // Le partite create da Marcello
@@ -81,4 +75,5 @@ $templateParams["ids_prenotate_utente"] = array_column($templateParams["mie_pren
 }
 
 require("template/base.php");
+
 ?>
